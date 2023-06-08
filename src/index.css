@@ -1,0 +1,13 @@
+@import url(./assets/fonts/fonts.css);
+
+:root {
+    --font-golos-regular: "GolosTextWebRegular", Arial, sans-serif;
+    --font-golos-bold: "GolosTextWebBold", Arial, sans-serif;
+    --font-golos-demibold: "GolosTextWebDemibold", Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

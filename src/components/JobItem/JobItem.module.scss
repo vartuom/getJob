@@ -1,0 +1,46 @@
+.jobBookmark {
+    position: absolute;
+    background: none;
+    border: none;    
+    top: 80%;
+    left: 80%;
+    display: flex;
+    align-items: center;
+    font: 24px/1.5 var(--font-golos-bold);
+    cursor: pointer;
+}
+
+.jobRegion {
+    font: 18px/1.2 var(--font-golos-regular);
+    color: gray;
+    text-align: right;
+}
+
+.jobListItem {
+    list-style: none;
+    padding: 16px 32px 32px 32px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 16px #5a7abe;
+    position: relative;
+    width: 100%;
+}
+
+.jobTitle {
+    font: 24px/1.5 var(--font-golos-bold);
+}
+
+.jobDuty {
+    font:18px/1.5 var(--font-golos-regular);
+}
+
+.jobDuty li {
+    list-style: none;
+}
+
+.jobSalary {
+    font:18px/1.5 var(--font-golos-regular);
+}
+
+.jobContacts {
+    list-style: none;
+}
