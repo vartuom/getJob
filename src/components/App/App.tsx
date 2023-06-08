@@ -1,11 +1,7 @@
 import {useEffect, useState} from 'react'
-import reactLogo from '../../assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import axios from "axios";
-import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
 import {Pagination} from "@mui/material";
+import parse from 'html-react-parser';
 const BASE_URL = "http://opendata.trudvsem.ru/api/v1/vacancies?"
 
 function App() {
@@ -28,7 +24,7 @@ function App() {
           }
           return res
       }
-      getJobs().then((res => console.log(res.data)));
+      getJobs().then(() => console.log(jobs))
       return () => {
           activeFetch= false;
       }
@@ -38,30 +34,26 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+          <ul>
+              {
+                  jobs.map(job => (
+                    <li key={job.vacancy.id}>
+                        <p>
+                            {job.vacancy["job-name"]}
+                        </p>
+                        <div>
+                            {parse(job.vacancy.duty)}
+                        </div>
+                    </li>
+                  ))
+              }
+          </ul>
         <Pagination
             count={25689}
             page={Math.ceil(offset/25)}
             onChange={(_, page) => setOffset(page * 25)}
         />
+      </div>
     </>
   )
 }
