@@ -30,9 +30,11 @@ const JobListItem = ({ job }: IJobListItemProps) => {
                 <p>{job.vacancy.region.name} </p>
                 <p>{job.vacancy.company.name}</p>
             </div>
-            <h2 className={s.jobTitle}>
-                {job.vacancy['job-name']}
-            </h2>
+            <a href={job.vacancy.vac_url} target="_blank" className={s.link}>
+                <h2 className={s.jobTitle}>
+                    {job.vacancy['job-name']}
+                </h2>
+            </a>
             <p className={s.jobSalary}>
                 {
                     !!job.vacancy.salary_min

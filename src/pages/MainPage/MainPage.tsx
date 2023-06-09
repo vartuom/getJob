@@ -75,6 +75,11 @@ const MainPage = () => {
         }
     }, [offset, query, searchArea])
 
+    useEffect(() => {
+        console.log(jobs);
+        
+    }, [jobs])
+
     return (
         <>
             <section className={s.wrapper}>
@@ -112,6 +117,7 @@ const MainPage = () => {
                         ? <>
                             <Pagination
                                 size="large"
+                                id='topPaginationElement'
                                 count={Math.ceil(totalJobsQty / pageSize)}
                                 page={getPage()}
                                 onChange={(_, page) => {

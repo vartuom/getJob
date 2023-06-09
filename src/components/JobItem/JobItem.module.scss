@@ -9,7 +9,18 @@
     font: 24px/1.5 var(--font-golos-bold);
     cursor: pointer;
     transition: opacity 0.2s linear;
+    &:hover {
+        opacity: 0.7;
+    }
+}
 
+.link {
+    text-decoration: none;
+    color: black;
+    transition: var(--opacity-transition);
+    &:visited {
+        color: rgb(94, 93, 93);
+    }
     &:hover {
         opacity: 0.7;
     }
