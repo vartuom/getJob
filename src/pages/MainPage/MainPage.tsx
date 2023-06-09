@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Pagination, TextField, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio } from '@mui/material'
+import { Pagination, TextField, RadioGroup, FormControl, FormControlLabel, Radio } from '@mui/material'
 import { MagnifyingGlass } from "react-loader-spinner";
 import { TRegionCodes, type IJobResponseData, type VacancyElement } from '../../types/types'
 import JobList from '../../components/JobList/JobList'
@@ -16,6 +16,7 @@ const MainPage = () => {
     const [totalJobsQty, setTotalJobsQty] = useState(0)
     const [offset, setOffset] = useState(0)
     const [isFetching, setIsFetching] = useState(true)
+    const [isError, setIsError] = useState(false)
     const [searchArea, setSearchArea] = useState<TRegionCodes>('');
 
     // количество записей на на странице при рендере
@@ -33,8 +34,8 @@ const MainPage = () => {
     };
 
     const getPage = () => {
-        const page = offset % pageSize === 0 
-            ? offset / pageSize + 1 
+        const page = offset % pageSize === 0
+            ? offset / pageSize + 1
             : Math.ceil(offset / pageSize);
         return page
     }
@@ -47,25 +48,31 @@ const MainPage = () => {
         // если промис зафулфилится после дизмаунта компонента
         let activeFetch = true
         setIsFetching(true)
+        setIsError(false)
         async function getJobs(): Promise<void> {
-            const res = await axios.get<IJobResponseData>(
-                BASE_URL + 
-                `${searchArea && `/region/${searchArea}`}?text=${query}&offset=${Math.ceil(offset / pageSize)}&limit=${pageSize}`
-            )
-            if (activeFetch) {
-                // немного ограничим выдачу без поискового запроса
-                // можно и не ограничивать, 
-                // но на мой взгляд 26000+ страниц пагинации вызывают фрустрацию :)       
-                if (res.data.meta.total <= 500) {
-                    setTotalJobsQty(res.data.meta.total)
-                } else {
-                    setTotalJobsQty(500)
+            try {
+                const res = await axios.get<IJobResponseData>(
+                    BASE_URL +
+                    `${searchArea && `/region/${searchArea}`}?text=${query}&offset=${Math.ceil(offset / pageSize)}&limit=${pageSize}`
+                )
+                if (activeFetch) {
+                    // немного ограничим выдачу без поискового запроса
+                    // можно и не ограничивать, 
+                    // но на мой взгляд 26000+ страниц пагинации вызывают фрустрацию :)       
+                    if (res.data.meta.total <= 500) {
+                        setTotalJobsQty(res.data.meta.total)
+                    } else {
+                        setTotalJobsQty(500)
+                    }
+                    if (res.data.results.vacancies) {
+                        setJobs(res.data.results.vacancies)
+                    } else {
+                        setJobs([])
+                    }
+                    setIsFetching(false)
                 }
-                if (res.data.results.vacancies) {
-                    setJobs(res.data.results.vacancies)
-                } else {
-                    setJobs([])
-                }
+            } catch (err) {
+                setIsError(true)
                 setIsFetching(false)
             }
         }
@@ -77,7 +84,7 @@ const MainPage = () => {
 
     useEffect(() => {
         console.log(jobs);
-        
+
     }, [jobs])
 
     return (
@@ -113,29 +120,31 @@ const MainPage = () => {
                     glassColor='#c0efff'
                     color='#e15b64'
                 />
-                    : jobs.length !== 0
-                        ? <>
-                            <Pagination
-                                size="large"
-                                id='topPaginationElement'
-                                count={Math.ceil(totalJobsQty / pageSize)}
-                                page={getPage()}
-                                onChange={(_, page) => {
-                                    setOffset((page - 1) * pageSize)
-                                }}
-                            />
-                            <JobList jobs={jobs} />
-                            <Pagination
-                                size="large"
-                                count={Math.ceil(totalJobsQty / pageSize)}
-                                page={getPage()}
-                                onChange={(_, page) => {
-                                    window.scrollTo(0, 0)
-                                    setOffset((page - 1) * pageSize)
-                                }}
-                            />
-                        </>
-                        : <Empty>По запросу ничего не найдено...</Empty>
+                    : isError
+                        ? <Empty>Что-то пошло не так... Повторите попытку позже.</Empty>
+                        : jobs.length !== 0
+                            ? <>
+                                <Pagination
+                                    size="large"
+                                    id='topPaginationElement'
+                                    count={Math.ceil(totalJobsQty / pageSize)}
+                                    page={getPage()}
+                                    onChange={(_, page) => {
+                                        setOffset((page - 1) * pageSize)
+                                    }}
+                                />
+                                <JobList jobs={jobs} />
+                                <Pagination
+                                    size="large"
+                                    count={Math.ceil(totalJobsQty / pageSize)}
+                                    page={getPage()}
+                                    onChange={(_, page) => {
+                                        window.scrollTo(0, 0)
+                                        setOffset((page - 1) * pageSize)
+                                    }}
+                                />
+                            </>
+                            : <Empty>По запросу ничего не найдено...</Empty>
                 }
             </section>
         </>
