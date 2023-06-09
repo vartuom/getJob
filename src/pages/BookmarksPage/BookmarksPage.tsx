@@ -5,18 +5,16 @@ import s from './BookmarksPage.module.scss'
 
 const BookmarksPage = () => {
 
-    const bookmarks = useAppSelector(state => state.bookmarks.bookmarks).map(vacancy => {
-        return { vacancy }
-    })
+    const bookmarks = useAppSelector(state => state.bookmarks.bookmarks)
 
     return (
-        <div className={s.wrapper}>
+        <section className={s.wrapper}>
             {bookmarks.length
                 ? <JobList jobs={bookmarks} />
                 : <Empty>Вы еще не добавили закладки</Empty>
             }
 
-        </div>
+        </section>
     )
 }
 

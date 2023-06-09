@@ -13,14 +13,14 @@ interface IJobListItemProps {
 const JobListItem = ({ job }: IJobListItemProps) => {
 
     const bookmarks = useAppSelector(state => state.bookmarks.bookmarks)
-    const isBookmarked = bookmarks.some((vacancy) => vacancy.id === job.vacancy.id)
+    const isBookmarked = bookmarks.some((bookmark) => bookmark.vacancy.id === job.vacancy.id)
     const dispatch = useAppDispatch()
 
     const handleClick = () => {
         if (isBookmarked) {
-            dispatch(removeBookmark(job.vacancy))
+            dispatch(removeBookmark(job))
         } else {
-            dispatch(addBookmark(job.vacancy))
+            dispatch(addBookmark(job))
         }
     }
 

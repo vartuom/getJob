@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { VacancyData } from "../types/types";
+import { VacancyElement } from "../types/types";
 
 interface IInitialState {
-    bookmarks: VacancyData[];
+    bookmarks: VacancyElement[];
 }
 
 const initialState: IInitialState = {
@@ -18,7 +18,7 @@ export const bookmarksSlice = createSlice({
         },
         removeBookmark(state, action) {
             state.bookmarks = state.bookmarks.filter(
-                (bookmark) => bookmark.id !== action.payload.id
+                (bookmark) => bookmark.vacancy.id !== action.payload.vacancy.id
             );
         },
     },

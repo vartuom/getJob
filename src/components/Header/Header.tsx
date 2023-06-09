@@ -4,7 +4,7 @@ import rosTrudLogo from '../../assets/images/Emblem_of_Rostrud.svg'
 
 const Header = () => {
     return (
-        <div className={s.header}>
+        <header className={s.header}>
             <div className={s.leadWrapper}>
                 <div className={s.lead}>
                     <h1 className={s.leadTitle}>
@@ -18,10 +18,10 @@ const Header = () => {
                 <img
                     className={s.logo}
                     src={rosTrudLogo}
-                    alt="Логотип лабораторий Минюста. Двуглавый орел под увеличительным стеклом."
+                    alt="Логотип Роструда. Двуглавый орел с шестерней и молотами."
                 />
             </div>
-        </div>
+        </header>
     )
 }
 

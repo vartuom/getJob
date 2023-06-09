@@ -5,7 +5,7 @@ export const debounce = (fn: Function, t: number) => {
         clearTimeout(timer);
         timer = setTimeout(() => fn(...args), t);
     }
-
+    
     debounced.clear = function () {
         clearTimeout(timer);
     };

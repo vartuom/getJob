@@ -18,9 +18,11 @@ const MainPage = () => {
     const [isFetching, setIsFetching] = useState(true)
     const [searchArea, setSearchArea] = useState<TRegionCodes>('');
 
+    // количество записей на на странице при рендере
     const pageSize = 7;
 
     const handleFilter = (value: string) => {
+        // начинаем с первой страницы при изменении поискового запроса
         setOffset(0)
         setQuery(value)
     }
@@ -31,20 +33,29 @@ const MainPage = () => {
     };
 
     const getPage = () => {
-        const page = offset % pageSize === 0 ? offset / pageSize + 1 : Math.ceil(offset / pageSize);
+        const page = offset % pageSize === 0 
+            ? offset / pageSize + 1 
+            : Math.ceil(offset / pageSize);
         return page
     }
 
+    // задержка запроса при вводе поискового запроса в мс
     const debouncedSetQuery = debounce(handleFilter, 800)
 
     useEffect(() => {
+        // ставим защиту от ошибки в консоли браузера, 
+        // если промис зафулфилится после дизмаунта компонента
         let activeFetch = true
         setIsFetching(true)
         async function getJobs(): Promise<void> {
             const res = await axios.get<IJobResponseData>(
-                BASE_URL + `${searchArea && `/region/${searchArea}`}?text=${query}&offset=${Math.ceil(offset / pageSize)}&limit=${pageSize}`
+                BASE_URL + 
+                `${searchArea && `/region/${searchArea}`}?text=${query}&offset=${Math.ceil(offset / pageSize)}&limit=${pageSize}`
             )
             if (activeFetch) {
+                // немного ограничим выдачу без поискового запроса
+                // можно и не ограничивать, 
+                // но на мой взгляд 26000+ страниц пагинации вызывают фрустрацию :)       
                 if (res.data.meta.total <= 500) {
                     setTotalJobsQty(res.data.meta.total)
                 } else {
@@ -66,7 +77,7 @@ const MainPage = () => {
 
     return (
         <>
-            <main className={s.wrapper}>
+            <section className={s.wrapper}>
                 <TextField
                     id="queryFilter"
                     label="Поиск..."
@@ -120,7 +131,7 @@ const MainPage = () => {
                         </>
                         : <Empty>По запросу ничего не найдено...</Empty>
                 }
-            </main>
+            </section>
         </>
     )
 }
