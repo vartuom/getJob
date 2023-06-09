@@ -1,11 +1,27 @@
 import Navigation from '../Navigation/Navigation'
 import s from './Header.module.scss'
+import rosTrudLogo from '../../assets/images/Emblem_of_Rostrud.svg'
 
 const Header = () => {
     return (
-        <header className={s.header}>
+        <div className={s.header}>
+            <div className={s.leadWrapper}>
+                <div className={s.lead}>
+                    <h1 className={s.leadTitle}>
+                        Поиск работы
+                    </h1>
+                    <p className={s.leadParagraph}>
+                        С использованием API «Работа России»
+                    </p>
+                </div>
+                <img
+                    className={s.logo}
+                    src={rosTrudLogo}
+                    alt="Логотип лабораторий Минюста. Двуглавый орел под увеличительным стеклом."
+                />
+            </div>            
             <Navigation />
-        </header>
+        </div>
     )
 }
 

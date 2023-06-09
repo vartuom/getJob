@@ -1,3 +1,38 @@
 .header {
+    background-color: #010b23;
+    padding-top: 16px;
+    color: white;  
+}
+
+.logo {
+    width: 160px;
+    object-fit: contain;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.5) 0%, rgba(1, 11, 35, 1) 100%);
+}
+
+.leadWrapper {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 256px;          
+}
+
+.lead {
+    max-width: 780px;
+}
+
+.leadTitle {
+    font: 40px/1.5 var(--font-golos-bold);
+    margin: 0;
+}
+
+.leadParagraph {
+    font: 22px/1.5 var(--font-golos-regular);
+    margin: 0;
+}
+
+.foreground {
+    z-index: 10;
+    background-color: none;
+    opacity: 1;
 }
