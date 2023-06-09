@@ -69,7 +69,9 @@ const JobListItem = ({ job }: IJobListItemProps) => {
             </p>
             <AccordionRow title='Обязанности'>
                 <div className={s.jobDuty}>
-                    {parse(job.vacancy.duty || '')}
+                    {parse(job.vacancy.duty
+                        ? job.vacancy.duty.replaceAll('<li>', '<p>').replaceAll('</li>', '</p>') 
+                        : '')}
                 </div>
             </AccordionRow>
             <AccordionRow title='Контакты'>

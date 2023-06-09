@@ -8,6 +8,10 @@
     align-items: center;
     font: 24px/1.5 var(--font-golos-bold);
     cursor: pointer;
+    transition: opacity 0.2s linear;
+    &:hover {
+        opacity: 0.7;
+    }
 }
 
 .jobRegion {

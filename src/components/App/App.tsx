@@ -21,18 +21,25 @@ const App = () => {
     setQuery(value)
   }
 
+  const getPage = () => {  
+    const page = offset % pageSize === 0 ? offset / pageSize + 1 : Math.ceil(offset / pageSize);    
+    return page
+  }
+
   const debouncedSetQuery = debounce(handleFilter, 800)
 
   useEffect(() => {
     let activeFetch = true
     setIsFetching(true)
     async function getJobs(): Promise<void> {
-      const res = await axios.get<IJobResponseData>(BASE_URL + `text=${query}&offset=${offset}&limit=${pageSize}`)
+      const res = await axios.get<IJobResponseData>(
+        BASE_URL + `text=${query}&offset=${Math.ceil(offset / pageSize)}&limit=${pageSize}`
+      )
       if (activeFetch) {
-        if (res.data.meta.total <= 999) {
+        if (res.data.meta.total <= 500) {
           setTotalJobsQty(res.data.meta.total)
         } else {
-          setTotalJobsQty(999)
+          setTotalJobsQty(500)
         }        
         if (res.data.results.vacancies) {
           setJobs(res.data.results.vacancies)
@@ -40,7 +47,6 @@ const App = () => {
           setJobs([])
         }
         setIsFetching(false)
-        console.log(res.data)
       }
     }
     void getJobs()
@@ -48,10 +54,6 @@ const App = () => {
       activeFetch = false
     }
   }, [offset, query])
-
-  useEffect(() => {
-    console.log(jobs)
-  }, [jobs])
 
   return (
     <>
@@ -67,19 +69,20 @@ const App = () => {
           jobs.length !== 0
             ? <>
               <Pagination
-                size='large'
+                size="large"
                 count={Math.ceil(totalJobsQty / pageSize)}
-                page={Math.floor(offset / pageSize)}
-                onChange={(_, page) => {
+                page={getPage()}
+                onChange={(_, page) => {                
                   setOffset((page - 1) * pageSize)
                 }}
               />
               <JobList jobs={jobs} />
               <Pagination
                 size="large"
-                count={Math.floor(totalJobsQty / pageSize) + 1}
-                page={Math.floor(offset / pageSize) + 1}
+                count={Math.ceil(totalJobsQty / pageSize)}
+                page={getPage()}
                 onChange={(_, page) => {
+                  window.scrollTo(0, 0)
                   setOffset((page - 1) * pageSize)
                 }}
               />
