@@ -13,6 +13,7 @@ const Header = () => {
                     <p className={s.leadParagraph}>
                         С использованием API «Работа России»
                     </p>
+                    <Navigation />
                 </div>
                 <img
                     className={s.logo}
@@ -20,7 +21,6 @@ const Header = () => {
                     alt="Логотип лабораторий Минюста. Двуглавый орел под увеличительным стеклом."
                 />
             </div>            
-            <Navigation />
         </div>
     )
 }

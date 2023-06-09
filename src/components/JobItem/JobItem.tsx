@@ -25,7 +25,7 @@ const JobListItem = ({ job }: IJobListItemProps) => {
     }
 
     return (
-        <div className={s.jobListItem}>
+        <div className={`${s.jobListItem} ${isBookmarked && s.jobListItem_active}`}>
             <div className={s.jobRegion}>
                 <p>{job.vacancy.region.name} </p>
                 <p>{job.vacancy.company.name}</p>

@@ -1,0 +1,11 @@
+.wrapper {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lead {
+    font: 24px/1.5 var(--font-golos-demibold);
+}

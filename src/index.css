@@ -4,6 +4,7 @@
     --font-golos-regular: "GolosTextWebRegular", Arial, sans-serif;
     --font-golos-bold: "GolosTextWebBold", Arial, sans-serif;
     --font-golos-demibold: "GolosTextWebDemibold", Arial, sans-serif;
+    --opacity-transition: opacity 0.2s linear;
 }
 
 * {
@@ -11,3 +12,5 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+html { overflow-y: scroll; }

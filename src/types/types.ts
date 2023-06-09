@@ -1,3 +1,5 @@
+export type TRegionCodes = '3800000000000' | ''
+
 export interface IJobResponseData {
   status: string
   request: Request
