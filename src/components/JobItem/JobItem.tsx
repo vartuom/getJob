@@ -70,7 +70,7 @@ const JobListItem = ({ job }: IJobListItemProps) => {
             <AccordionRow title='Обязанности'>
                 <div className={s.jobDuty}>
                     {parse(job.vacancy.duty
-                        ? job.vacancy.duty.replaceAll('<li>', '<p>').replaceAll('</li>', '</p>') 
+                        ? job.vacancy.duty.replaceAll('<li>', '<p>').replaceAll('</li>', '</p>')
                         : '')}
                 </div>
             </AccordionRow>

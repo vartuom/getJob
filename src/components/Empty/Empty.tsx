@@ -4,7 +4,7 @@ import s from './Empty.module.scss'
 interface IEmptyProps {
     children?: React.ReactNode;
 }
-const Empty = ({children}: IEmptyProps) => {
+const Empty = ({ children }: IEmptyProps) => {
     return (
         <div className={s.wrapper}>
             <TabUnselectedIcon

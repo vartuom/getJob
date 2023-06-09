@@ -8,19 +8,19 @@ import { Provider } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
-  typography: {
-    fontFamily: ["GolosTextWebRegular", "Arial", "sans-serif"].join(","),
-  },
+    typography: {
+        fontFamily: ["GolosTextWebRegular", "Arial", "sans-serif"].join(","),
+    },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>
 )

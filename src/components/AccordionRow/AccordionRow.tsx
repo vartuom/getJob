@@ -20,32 +20,30 @@ function AccordionRow({
 
     return (
         <div
-            className={`${styles.accordion__row} ${
-                borders &&
+            className={`${styles.accordionRow} ${borders &&
                 (borders === "none"
-                    ? styles.accordion__row_border_none
-                    : styles.accordion__row_border_bottom)
-            }`}
+                    ? styles.accordionRow_border_none
+                    : styles.accordionRow_border_bottom)
+                }`}
         >
             <button
                 type="button"
-                className={styles.accordion__title}
+                className={styles.accordionTitle}
                 onClick={() => {
                     setIsActive(!isActive);
                 }}
             >
                 <div>{title}</div>
                 <div
-                    className={`${styles.accordion__arrow} ${
-                        isActive && styles.accordion__arrow_opened
-                    }`}
+                    className={`${styles.accordionArrow} ${isActive && styles.accordionArrow_opened
+                        }`}
                 >
                     <ExpandMoreIcon />
                 </div>
             </button>
             <Collapse in={isActive}>
                 <div
-                    className={styles.accordion__content}
+                    className={styles.accordionContent}
                     aria-expanded={isActive}
                 >
                     {children}

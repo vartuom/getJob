@@ -11,11 +11,11 @@ const BookmarksPage = () => {
 
     return (
         <div className={s.wrapper}>
-            {bookmarks.length 
+            {bookmarks.length
                 ? <JobList jobs={bookmarks} />
                 : <Empty>Вы еще не добавили закладки</Empty>
             }
-            
+
         </div>
     )
 }
